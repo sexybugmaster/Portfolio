@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>임호영 이력서</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 11mm;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: #162234;
+        background: #ffffff;
+        font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+        font-size: 9.8px;
+        line-height: 1.48;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        margin-top: 0;
+      }
+
+      .resume {
+        display: grid;
+        gap: 10px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 210px;
+        gap: 18px;
+        border-radius: 12px;
+        padding: 17px 19px;
+        background: linear-gradient(135deg, #071422 0%, #102940 70%, #0d6875 100%);
+        color: #ffffff;
+      }
+
+      h1 {
+        margin-bottom: 6px;
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .role {
+        margin-bottom: 10px;
+        color: #9be7f5;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .summary {
+        margin: 0;
+        color: #dbe8f3;
+        font-size: 10.3px;
+      }
+
+      .contact {
+        display: grid;
+        align-content: start;
+        gap: 7px;
+        color: #e9f5fb;
+        font-size: 9px;
+      }
+
+      .contact div {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        padding: 5px 8px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow-wrap: anywhere;
+      }
+
+      .impact-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .impact {
+        border: 1px solid #d7e2eb;
+        border-radius: 10px;
+        padding: 8px 10px;
+        background: #f5f9fc;
+      }
+
+      .impact strong {
+        display: block;
+        margin-bottom: 3px;
+        color: #0e6876;
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .impact span {
+        display: block;
+        color: #26384d;
+        font-weight: 900;
+      }
+
+      .impact small {
+        color: #65758a;
+      }
+
+      .section {
+        break-inside: avoid;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 7px;
+        color: #0d2238;
+        font-size: 13.8px;
+        letter-spacing: 0;
+      }
+
+      .section-title::before {
+        width: 6px;
+        height: 18px;
+        border-radius: 2px;
+        background: #0e6876;
+        content: "";
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .strength,
+      .mini-card {
+        border: 1px solid #dce5ee;
+        border-radius: 10px;
+        padding: 9px 10px;
+        background: #fbfdff;
+      }
+
+      .strength h3,
+      .mini-card h3 {
+        margin-bottom: 4px;
+        color: #172033;
+        font-size: 11.5px;
+      }
+
+      .strength p,
+      .mini-card p {
+        margin: 0;
+        color: #46576b;
+      }
+
+      .project-group {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 9px;
+      }
+
+      .group-label {
+        display: inline-flex;
+        width: fit-content;
+        border-radius: 999px;
+        padding: 4px 9px;
+        background: #e8f4f7;
+        color: #0d6875;
+        font-size: 9px;
+        font-weight: 900;
+      }
+
+      .project {
+        border: 1px solid #dce5ee;
+        border-left: 5px solid #0e6876;
+        border-radius: 10px;
+        padding: 9px 10px;
+        background: #ffffff;
+        break-inside: avoid;
+      }
+
+      .project.secondary {
+        border-left-color: #6c7f95;
+      }
+
+      .project-head {
+        display: grid;
+        grid-template-columns: 1fr 190px;
+        gap: 10px;
+        margin-bottom: 7px;
+      }
+
+      .project h3 {
+        margin-bottom: 3px;
+        color: #172033;
+        font-size: 11.8px;
+      }
+
+      .meta {
+        color: #65758a;
+        font-size: 8.8px;
+        font-weight: 800;
+      }
+
+      .project-link {
+        color: #0e6876;
+        font-size: 8.4px;
+        font-weight: 900;
+        overflow-wrap: anywhere;
+        text-align: right;
+      }
+
+      .project-body {
+        display: grid;
+        grid-template-columns: 0.92fr 1.1fr 0.98fr;
+        gap: 7px;
+      }
+
+      .project-cell {
+        border-radius: 8px;
+        padding: 7px 8px;
+        background: #f5f8fb;
+      }
+
+      .project-cell h4 {
+        margin-bottom: 4px;
+        color: #0d2238;
+        font-size: 8.8px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 13px;
+      }
+
+      li {
+        margin-bottom: 2px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .tag {
+        border: 1px solid #cdd9e4;
+        border-radius: 999px;
+        padding: 2px 6px;
+        background: #ffffff;
+        color: #2b3c50;
+        font-size: 8.2px;
+        font-weight: 800;
+      }
+
+      .page-break {
+        break-before: auto;
+      }
+
+      .skill-matrix {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 7px;
+      }
+
+      .timeline-item {
+        border-left: 3px solid #0e6876;
+        padding-left: 9px;
+      }
+
+      .timeline-item p {
+        margin: 0;
+        color: #46576b;
+      }
+
+      .cert-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .cert-list li {
+        border: 1px solid #dce5ee;
+        border-radius: 8px;
+        padding: 6px 8px;
+        background: #fbfdff;
+        font-weight: 800;
+      }
+
+      .small-note {
+        margin: 5px 0 0;
+        color: #65758a;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="resume">
+      <header class="hero">
+        <div>
+          <h1>임호영</h1>
+          <p class="role">Backend Developer · Financial IT · AI Service Integration</p>
+          <p class="summary">
+            흐릿한 문제를 로그, 지표, API 규격, 데이터 검증 기준으로 구조화하는 백엔드 개발자입니다.
+            Spring Boot와 FastAPI 기반 서비스 연동, AI 출력 검증, 서버 모니터링, 운영 안정화 경험을 바탕으로
+            정확성과 신뢰성이 중요한 금융 IT 환경에서 안정적인 서비스를 만들고자 합니다.
+          </p>
+        </div>
+        <div class="contact">
+          <div>hyl020415@gmail.com</div>
+          <div>velog.io/@hyl0415/posts</div>
+          <div>Project GitHub links listed below</div>
+          <div>Backend · Server/Infra · AI API</div>
+        </div>
+      </header>
+
+      <section class="impact-row" aria-label="핵심 성과">
+        <div class="impact">
+          <strong>27%</strong>
+          <span>인증 지연 개선</span>
+          <small>KEPCO MCS</small>
+        </div>
+        <div class="impact">
+          <strong>30-40%</strong>
+          <span>오류율 감소</span>
+          <small>로그 기반 분류</small>
+        </div>
+        <div class="impact">
+          <strong>99%+</strong>
+          <span>API 성공률</span>
+          <small>HiddenGrowth</small>
+        </div>
+        <div class="impact">
+          <strong>25%</strong>
+          <span>AI 정확도 향상</span>
+          <small>Schema 검증</small>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Core Strengths</h2>
+        <div class="two-col">
+          <article class="strength">
+            <h3>검증 가능한 백엔드 설계</h3>
+            <p>요청/응답 규격, 인증, 예외 처리, 데이터 정합성 기준을 명확히 정리하고 API Contract로 충돌을 줄입니다.</p>
+          </article>
+          <article class="strength">
+            <h3>운영 관점의 문제 해결</h3>
+            <p>로그와 모니터링 지표를 기반으로 병목을 분리하고, 재현 → 분류 → 검증 → 지표 비교 흐름으로 개선합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Projects</h2>
+
+        <div class="project-group">
+          <div class="group-label">01 · 운영 안정화 / 모니터링</div>
+          <article class="project">
+            <div class="project-head">
+              <div>
+                <h3>NUNCHI 키오스크 서버 모니터링 및 접근성 보조 입력</h3>
+                <div class="meta">서버/인프라 담당 · Spring Boot, FastAPI, PostgreSQL, Redis, Docker Compose, AWS EC2</div>
+              </div>
+              <div class="project-link">github.com/CapstoneDgu</div>
+            </div>
+            <div class="project-body">
+              <div class="project-cell">
+                <h4>Problem</h4>
+                <ul>
+                  <li>AI 주문 API 응답 지연 발생</li>
+                  <li>Spring/DB/MCP/Agent 중 병목 구간 불명확</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Action</h4>
+                <ul>
+                  <li>Actuator, Prometheus, Grafana 관측 체계 구성</li>
+                  <li>[AI_STEP], [MCP_TOOL], [AI_CALL] 로그 기준 지연 구간 분리</li>
+                  <li>OpenCV/MediaPipe 기반 YES/NO 보조 입력 PoC 구현</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Result</h4>
+                <ul>
+                  <li>MCP Tool은 수십 ms, LangGraph Agent가 수 초-수십 초 병목임을 확인</li>
+                  <li>운영 관측과 접근성 보조 입력 기반 마련</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tags" style="margin-top: 7px">
+              <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Actuator</span>
+              <span class="tag">OpenCV</span><span class="tag">WebSocket</span><span class="tag">LangGraph</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <div>
+                <h3>한전 MCS 생체정맥 스마트결제 시스템 안정화</h3>
+                <div class="meta">청년 일경험 프로젝트 인턴 · 2025.07.22 - 2025.08.29 · API 테스트, 로그 분석, 데이터 정합성 검증</div>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-cell">
+                <h4>Problem</h4>
+                <ul>
+                  <li>생체정맥 인증 실패와 지연 발생</li>
+                  <li>원인 유형과 검증 기준이 불명확</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Action</h4>
+                <ul>
+                  <li>입력 품질, 매칭 불일치, 네트워크 지연, 서버 예외로 로그 유형 분류</li>
+                  <li>필수값, 형식, 사용자-등록정보 매칭 검증 보완</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Result</h4>
+                <ul>
+                  <li>평균 인증 지연 약 27% 개선</li>
+                  <li>인증 오류 발생률 약 30-40% 감소</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="project-group">
+          <div class="group-label">02 · AI 연동 / API Contract</div>
+          <article class="project">
+            <div class="project-head">
+              <div>
+                <h3>HiddenGrowth - AI 기반 성장 분석/포트폴리오 생성 플랫폼</h3>
+                <div class="meta">팀 리더 / AI 개발 / 백엔드 연동 · Spring Boot, FastAPI, LangGraph, OpenAI API, MySQL</div>
+              </div>
+              <div class="project-link">github.com/2025-X-Thon-Team4-OhRyuNotJo/2025_X_Thon_Team4_OhRyuNotJo</div>
+            </div>
+            <div class="project-body">
+              <div class="project-cell">
+                <h4>Problem</h4>
+                <ul>
+                  <li>무관한 스킬, 중복 스킬, JSON 구조 깨짐 발생</li>
+                  <li>FastAPI-Spring 요청/응답 스키마 충돌</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Action</h4>
+                <ul>
+                  <li>추출 → 검증 → 정제 → 최종화 LangGraph 파이프라인 설계</li>
+                  <li>JSON Schema/Pydantic 검증과 후처리 필터 적용</li>
+                  <li>API Contract로 요청/응답 규격 표준화</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Result</h4>
+                <ul>
+                  <li>API 성공률 99% 이상 안정화</li>
+                  <li>AI 스킬 추출 정확도 약 25%, 품질 약 30% 개선</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tags" style="margin-top: 7px">
+              <span class="tag">JSON Schema</span><span class="tag">Pydantic</span><span class="tag">FastAPI</span>
+              <span class="tag">Spring Boot</span><span class="tag">OpenAI API</span>
+            </div>
+          </article>
+
+          <article class="project secondary">
+            <div class="project-head">
+              <div>
+                <h3>AI 기반 졸업요건 판정 시스템</h3>
+                <div class="meta">데이터 매핑, 판정 로직, 예외 케이스 기준 자문 · Spring Boot, API 설계, JWT, AWS, CI/CD</div>
+              </div>
+              <div class="project-link">github.com/CSID-DGU/2025-2-DES4015-Hangover-3</div>
+            </div>
+            <div class="project-body">
+              <div class="project-cell">
+                <h4>Problem</h4>
+                <ul>
+                  <li>졸업요건 규정과 이수 내역 매핑 복잡</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Action</h4>
+                <ul>
+                  <li>데이터 매핑 방식, 판정 로직, 예외 케이스 기준 정리</li>
+                </ul>
+              </div>
+              <div class="project-cell">
+                <h4>Result</h4>
+                <ul>
+                  <li>규정 기반 시스템에서 검증과 설명가능성의 중요성 경험</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section page-break">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skill-matrix">
+          <article class="mini-card">
+            <h3>Backend</h3>
+            <div class="tags">
+              <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span>
+              <span class="tag">JPA</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
+              <span class="tag">WebClient</span><span class="tag">JWT</span>
+            </div>
+          </article>
+          <article class="mini-card">
+            <h3>Database / Infra</h3>
+            <div class="tags">
+              <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+              <span class="tag">Docker</span><span class="tag">Docker Compose</span><span class="tag">AWS EC2</span>
+              <span class="tag">AWS RDS</span><span class="tag">Nginx</span>
+            </div>
+          </article>
+          <article class="mini-card">
+            <h3>Monitoring / DevOps</h3>
+            <div class="tags">
+              <span class="tag">Spring Actuator</span><span class="tag">Prometheus</span><span class="tag">Grafana</span>
+              <span class="tag">GitHub Actions</span><span class="tag">Swagger</span><span class="tag">Postman</span>
+              <span class="tag">Linux</span>
+            </div>
+          </article>
+          <article class="mini-card">
+            <h3>AI / Data</h3>
+            <div class="tags">
+              <span class="tag">LangGraph</span><span class="tag">OpenAI API</span><span class="tag">JSON Schema</span>
+              <span class="tag">Pydantic</span><span class="tag">AI 후처리</span><span class="tag">데이터 정합성 검증</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+          <article class="timeline-item">
+            <h3>KEPCO MCS / 한전 MCS 청년 일경험 프로젝트 인턴</h3>
+            <div class="meta">2025.07.22 - 2025.08.29</div>
+            <p>생체정맥 디바이스 기반 어르신 스마트결제 시스템 안정화. 인증 실패와 지연을 로그 기반으로 분석했습니다.</p>
+          </article>
+          <article class="timeline-item">
+            <h3>동국대학교 교내 국가근로 IT 지원</h3>
+            <p>컴퓨터 AS 접수 및 수리, 학내 IT 지원을 수행하며 사용자 문제를 기술적 원인과 조치 단위로 정리했습니다.</p>
+          </article>
+          <article class="timeline-item">
+            <h3>서울시립영등포보현희망센터 거리상담원</h3>
+            <p>현장 대응과 물품 배분을 맡으며 다양한 사용자와 명확하게 소통하는 경험을 쌓았습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Leadership / Coursework / Certificates</h2>
+        <div class="two-col">
+          <article class="mini-card">
+            <h3>Education</h3>
+            <p class="small-note">동국대학교 컴퓨터정보통신공학부 · 정보통신공학 전공 · GPA 4.32 / 4.5</p>
+            <h3 style="margin-top: 10px">Student Council</h3>
+            <ul>
+              <li>1학년 학과 대표 (2021.03 - 2021.12)</li>
+              <li>학과 기획국원 (2024.03 - 2024.06)</li>
+              <li>학과 선거운동본부장 (2024.12)</li>
+              <li>학과 홍보국장 (2025.03 - 2025.12)</li>
+            </ul>
+            <h3 style="margin-top: 10px">Activities / Scholarships</h3>
+            <p class="small-note">
+              X-THON HiddenGrowth, 한이음 프로젝트, FLEXPACE 기획/프로토타입, 코멘토 SW개발 직무부트캠프,
+              Google Cloud Fundamentals, 리더장학, 인재육성장학, 서울 RISE 교육활동지원 장학
+            </p>
+          </article>
+          <article class="mini-card">
+            <h3>Major Coursework</h3>
+            <div class="tags">
+              <span class="tag">자료구조와실습 A+</span><span class="tag">컴퓨터알고리즘및실습 A+</span>
+              <span class="tag">객체지향언어와실습 A+</span><span class="tag">운영체제 A+</span>
+              <span class="tag">데이터베이스체제 A+</span><span class="tag">컴퓨터네트워크 A+</span>
+              <span class="tag">데이터통신 A+</span><span class="tag">컴퓨터구성 A+</span>
+              <span class="tag">임베디드소프트웨어 A+</span><span class="tag">스마트홈 IoT P</span>
+              <span class="tag">지산학캡스톤디자인2 P</span><span class="tag">기술창업캡스톤디자인2 B+</span>
+            </div>
+            <h3 style="margin-top: 10px">Certificates</h3>
+            <ul class="cert-list">
+              <li>네트워크관리사 2급</li>
+              <li>리눅스마스터 2급</li>
+              <li>SQLD</li>
+              <li>AWS Certified AI Practitioner</li>
+              <li>TOEIC Speaking IH 140</li>
+              <li>TRIZ Level 1</li>
+              <li>IPAT 4급</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

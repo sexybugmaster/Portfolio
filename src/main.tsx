@@ -372,7 +372,6 @@ function Header() {
     <header className="site-header">
       <a className="brand" href="#top" aria-label="임호영 포트폴리오 홈">
         <span>임호영</span>
-        <small>Backend Portfolio</small>
       </a>
       <nav aria-label="주요 섹션">
         {navItems.map((item) => (

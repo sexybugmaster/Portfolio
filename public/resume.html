@@ -333,14 +333,14 @@
 
       <section class="impact-row" aria-label="핵심 성과">
         <div class="impact">
-          <strong>27%</strong>
-          <span>인증 지연 개선</span>
-          <small>KEPCO MCS</small>
+          <strong>15/15</strong>
+          <span>기능 요구사항 검증</span>
+          <small>NUNCHI physical QA</small>
         </div>
         <div class="impact">
-          <strong>30-40%</strong>
-          <span>오류율 감소</span>
-          <small>로그 기반 분류</small>
+          <strong>9-19s</strong>
+          <span>LLM 병목 분리</span>
+          <small>MCP는 수십 ms</small>
         </div>
         <div class="impact">
           <strong>99%+</strong>
@@ -348,9 +348,9 @@
           <small>HiddenGrowth</small>
         </div>
         <div class="impact">
-          <strong>25%</strong>
-          <span>AI 정확도 향상</span>
-          <small>Schema 검증</small>
+          <strong>27%</strong>
+          <span>인증 지연 개선</span>
+          <small>KEPCO MCS</small>
         </div>
       </section>
 
@@ -376,7 +376,7 @@
           <article class="project">
             <div class="project-head">
               <div>
-                <h3>NUNCHI 키오스크 서버 모니터링 및 접근성 보조 입력</h3>
+                <h3>NUNCHI 키오스크 서버 모니터링 및 시선 기반 전체 조작</h3>
                 <div class="meta">서버/인프라 담당 · Spring Boot, FastAPI, PostgreSQL, Redis, Docker Compose, AWS EC2</div>
               </div>
               <div class="project-link">github.com/CapstoneDgu</div>
@@ -385,29 +385,34 @@
               <div class="project-cell">
                 <h4>Problem</h4>
                 <ul>
-                  <li>AI 주문 API 응답 지연 발생</li>
-                  <li>Spring/DB/MCP/Agent 중 병목 구간 불명확</li>
+                  <li>AI 주문 대화가 9-19초까지 지연</li>
+                  <li>Spring/DB/MCP/LangGraph 중 병목 구간 불명확</li>
+                  <li>터치가 어려운 사용자를 위한 전체 조작 채널 필요</li>
                 </ul>
               </div>
               <div class="project-cell">
                 <h4>Action</h4>
                 <ul>
-                  <li>Actuator, Prometheus, Grafana 관측 체계 구성</li>
-                  <li>[AI_STEP], [MCP_TOOL], [AI_CALL] 로그 기준 지연 구간 분리</li>
-                  <li>OpenCV/MediaPipe 기반 YES/NO 보조 입력 PoC 구현</li>
+                  <li>EC2/Docker Compose 기반 Spring, FastAPI, MCP, PostgreSQL, Redis 운영 구조 구성</li>
+                  <li>Actuator, Prometheus 15초 scrape, Grafana/p95·p99 관측 체계 구성</li>
+                  <li>[AI_STEP], [MCP_TOOL], [AI_CALL] ms 로그 기준 지연 구간 분리</li>
+                  <li>MediaPipe 468 landmarks, 15fps 시선 파이프라인과 WebSocket 연동</li>
                 </ul>
               </div>
               <div class="project-cell">
                 <h4>Result</h4>
                 <ul>
-                  <li>MCP Tool은 수십 ms, LangGraph Agent가 수 초-수십 초 병목임을 확인</li>
-                  <li>운영 관측과 접근성 보조 입력 기반 마련</li>
+                  <li>15개 기능 요구사항을 물리 키오스크에서 구현·검증</li>
+                  <li>REST API는 sub-second, MCP Tool은 수십 ms 수준임을 확인</li>
+                  <li>9-19초 지연이 LLM-bound LangGraph 구간임을 분리</li>
+                  <li>좌/우 시선 이동과 더블 깜빡임 클릭으로 화면 전반 터치 없이 조작</li>
                 </ul>
               </div>
             </div>
             <div class="tags" style="margin-top: 7px">
               <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Actuator</span>
-              <span class="tag">OpenCV</span><span class="tag">WebSocket</span><span class="tag">LangGraph</span>
+              <span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">WebSocket</span>
+              <span class="tag">LangGraph</span><span class="tag">Redis Lock</span>
             </div>
           </article>
 
@@ -547,7 +552,8 @@
             <h3>AI / Data</h3>
             <div class="tags">
               <span class="tag">LangGraph</span><span class="tag">OpenAI API</span><span class="tag">JSON Schema</span>
-              <span class="tag">Pydantic</span><span class="tag">AI 후처리</span><span class="tag">데이터 정합성 검증</span>
+              <span class="tag">Pydantic</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span>
+              <span class="tag">AI 후처리</span><span class="tag">데이터 정합성 검증</span>
             </div>
           </article>
         </div>

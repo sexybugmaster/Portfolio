@@ -58,10 +58,10 @@ const email = "hyl020415@gmail.com";
 const velog = "https://velog.io/@hyl0415/posts";
 
 const metrics = [
-  { value: "27%", label: "인증 지연 개선", detail: "KEPCO MCS" },
-  { value: "30-40%", label: "인증 오류율 감소", detail: "로그 기반 분류" },
+  { value: "15/15", label: "기능 요구사항 구현·검증", detail: "NUNCHI physical QA" },
+  { value: "9-19s", label: "LLM 병목 구간 분리", detail: "MCP는 수십 ms" },
   { value: "99%+", label: "API 성공률 안정화", detail: "HiddenGrowth" },
-  { value: "25%", label: "AI 추출 정확도 향상", detail: "Schema 검증" },
+  { value: "27%", label: "인증 지연 개선", detail: "KEPCO MCS" },
 ];
 
 const focusCards = [
@@ -123,6 +123,7 @@ const stackGroups: SkillGroup[] = [
       { name: "OpenAI API", level: 3, label: "활용" },
       { name: "JSON Schema", level: 4, label: "주력" },
       { name: "Pydantic", level: 3, label: "활용" },
+      { name: "OpenCV / MediaPipe", level: 2, label: "경험" },
       { name: "AI 후처리 파이프라인", level: 4, label: "주력" },
       { name: "데이터 정합성 검증", level: 4, label: "주력" },
     ],
@@ -131,24 +132,38 @@ const stackGroups: SkillGroup[] = [
 
 const projects: Project[] = [
   {
-    eyebrow: "Monitoring / Accessibility",
-    title: "NUNCHI 키오스크 서버 모니터링 및 접근성 보조 입력",
+    eyebrow: "Infra / Monitoring / Gaze Control",
+    title: "NUNCHI 키오스크 서버 모니터링 및 시선 기반 전체 조작",
     summary:
-      "AI 키오스크 서비스의 지연 구간을 측정하고 Prometheus/Grafana 관측 체계와 OpenCV 눈 인식 보조 입력을 구축했습니다.",
+      "LLM Agent 기반 배리어프리 키오스크의 지연 구간을 측정하고 Prometheus/Grafana 관측 체계와 시선 기반 전체 조작 기능을 구축했습니다.",
     role: "서버/인프라 담당",
-    stack: ["Spring Boot", "FastAPI", "PostgreSQL", "Redis", "Docker Compose", "AWS EC2", "Prometheus", "Grafana", "OpenCV"],
+    stack: [
+      "Spring Boot",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Docker Compose",
+      "AWS EC2",
+      "Prometheus",
+      "Grafana",
+      "OpenCV",
+      "MediaPipe",
+      "WebSocket",
+    ],
     problem: [
-      "AI 주문 API 응답 지연이 발생했지만 Spring, DB, MCP, AI Agent 중 병목 구간이 불명확했습니다.",
-      "손 사용이 어려운 사용자를 위한 키오스크 보조 입력 방식이 필요했습니다.",
+      "AI 주문 대화가 9-19초까지 지연되며 Spring, DB, MCP, LangGraph Agent 중 병목 구간이 불명확했습니다.",
+      "터치, 음성, AI 액션, 시선 입력이 같은 장바구니 상태를 다루기 때문에 동시성 안전성과 접근성 입력 채널이 함께 필요했습니다.",
     ],
     action: [
-      "Spring Actuator, Prometheus, Grafana로 API 요청 수, 응답 시간, 5xx 에러율을 관측했습니다.",
-      "FastAPI [AI_STEP], MCP [MCP_TOOL], Spring [AI_CALL] 로그를 기준으로 지연 구간을 분리했습니다.",
-      "OpenCV/MediaPipe 기반 눈동자 방향과 더블 깜빡임 감지를 WebSocket으로 키오스크 화면과 연동했습니다.",
+      "AWS EC2와 Docker Compose 환경에서 Spring Boot, FastAPI, MCP, PostgreSQL, Redis 운영 구조를 구성했습니다.",
+      "Spring Actuator를 Prometheus가 15초 주기로 수집하도록 연결하고 p95/p99 요청 히스토그램과 Grafana 대시보드로 API 상태를 관측했습니다.",
+      "FastAPI [AI_STEP], MCP [MCP_TOOL], Spring [AI_CALL] ms 단위 로그를 기준으로 지연 구간을 분리했습니다.",
+      "MediaPipe Face Mesh 468 landmarks 기반 15fps 시선 파이프라인을 WebSocket으로 연결해 좌/우 시선 포커스 이동과 더블 깜빡임 클릭을 구현했습니다.",
     ],
     result: [
-      "MCP Tool 호출은 수십 ms 수준이고 LangGraph Agent 실행이 수 초-수십 초 병목임을 확인했습니다.",
-      "운영 관측 체계를 만들고 YES/NO 접근성 보조 입력 PoC를 구현했습니다.",
+      "15개 기능 요구사항을 물리 키오스크에서 구현·검증했고, 일반 REST API는 sub-second, MCP Tool은 수십 ms 수준임을 확인했습니다.",
+      "전체 agentic turn의 9-19초 지연이 시스템/DB가 아니라 LLM-bound LangGraph 실행 구간임을 분리했습니다.",
+      "고객 화면 전반에서 시선 이동과 더블 깜빡임 클릭으로 터치 없이 조작 가능한 접근성 채널을 구현했습니다.",
     ],
     links: [{ label: "GitHub", href: "https://github.com/CapstoneDgu" }],
   },

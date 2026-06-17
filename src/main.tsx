@@ -375,7 +375,8 @@ function Hero() {
     <section className="hero section" id="top">
       <div className="hero-copy">
         <p className="eyebrow">Backend · Financial IT · AI Service Reliability</p>
-        <h1>흐릿한 문제를 선명한 구조로 바꾸는 백엔드 개발자, 임호영입니다.</h1>
+        <h1>흐릿한 문제를 선명한 구조로 바꾸는 백엔드 개발자</h1>
+        <p className="hero-name">임호영입니다.</p>
         <p className="hero-description">
           API 표준화, 데이터 정합성, 서버 모니터링, AI 파이프라인 검증을 통해 서비스 신뢰를 만드는 개발자를
           지향합니다.

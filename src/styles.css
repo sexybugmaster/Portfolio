@@ -103,15 +103,15 @@ nav a:hover {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 54px;
+  gap: 28px;
   min-height: calc(100vh - 72px);
   padding-top: 54px;
 }
 
 .hero-copy {
-  max-width: 760px;
+  max-width: none;
 }
 
 .eyebrow {
@@ -131,12 +131,20 @@ p {
 }
 
 h1 {
-  max-width: 780px;
+  max-width: none;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.hero-name {
   margin-bottom: 24px;
   color: #ffffff;
-  font-size: clamp(42px, 7vw, 76px);
-  line-height: 1.03;
-  letter-spacing: 0;
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 900;
+  line-height: 1.08;
 }
 
 h2 {
@@ -229,7 +237,7 @@ p {
 
 .reliability-panel {
   position: relative;
-  min-height: 520px;
+  min-height: auto;
   border: 1px solid rgba(143, 185, 255, 0.18);
   border-radius: 8px;
   padding: 22px;
@@ -263,7 +271,7 @@ p {
 
 .hero-metric-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-top: 26px;
 }
@@ -312,7 +320,8 @@ p {
 
 .solve-flow ol {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -320,8 +329,7 @@ p {
 
 .solve-flow li {
   display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 10px;
+  gap: 6px;
   color: #b9c8d7;
   font-size: 14px;
   line-height: 1.55;
@@ -605,7 +613,7 @@ p {
 .project-card {
   scroll-margin-top: 96px;
   display: grid;
-  grid-template-columns: 70px minmax(0, 0.82fr) minmax(420px, 1.18fr);
+  grid-template-columns: 70px minmax(0, 1fr);
   gap: 24px;
   padding: 28px;
 }
@@ -637,9 +645,10 @@ p {
 }
 
 .par-grid {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 18px;
 }
 
 .par-grid.compact {
@@ -649,7 +658,7 @@ p {
 .par-block {
   border: 1px solid rgba(216, 227, 238, 0.1);
   border-radius: 8px;
-  padding: 16px;
+  padding: 18px;
   background: rgba(255, 255, 255, 0.045);
 }
 
@@ -674,8 +683,8 @@ p {
   position: relative;
   padding-left: 14px;
   color: #c7d6e5;
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .par-block li::before {
@@ -924,6 +933,11 @@ p {
     min-height: 470px;
   }
 
+  .hero-metric-grid,
+  .solve-flow ol {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .focus-grid,
   .metrics-grid,
   .skill-legend,
@@ -960,6 +974,10 @@ p {
     font-size: 17px;
   }
 
+  .hero-name {
+    font-size: 40px;
+  }
+
   .button {
     width: 100%;
   }
@@ -993,6 +1011,10 @@ p {
   }
 
   .hero-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .solve-flow ol {
     grid-template-columns: 1fr;
   }
 

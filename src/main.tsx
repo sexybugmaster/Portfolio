@@ -72,8 +72,8 @@ const focusCards = [
   },
   {
     icon: <ShieldCheck aria-hidden="true" />,
-    title: "안정적인 백엔드",
-    text: "API 규격, 예외 처리, 인증, 데이터 정합성을 서비스 신뢰의 기본값으로 봅니다.",
+    title: "안정적인 서버/인프라",
+    text: "API 규격, 예외 처리, 인증, 데이터 정합성과 배포/운영 환경을 함께 봅니다.",
   },
   {
     icon: <MonitorDot aria-hidden="true" />,
@@ -374,12 +374,12 @@ function Hero() {
   return (
     <section className="hero section" id="top">
       <div className="hero-copy">
-        <p className="eyebrow">Backend · Financial IT · AI Service Reliability</p>
-        <h1>흐릿한 문제를 선명한 구조로 바꾸는 백엔드 개발자</h1>
+        <p className="eyebrow">Backend · Server/Infra · Financial IT · AI Service Reliability</p>
+        <h1>흐릿한 문제를 안정적인 시스템 구조로 바꾸는 개발자</h1>
         <p className="hero-name">임호영입니다.</p>
         <p className="hero-description">
-          API 표준화, 데이터 정합성, 서버 모니터링, AI 파이프라인 검증을 통해 서비스 신뢰를 만드는 개발자를
-          지향합니다.
+          API 표준화, 데이터 정합성, 서버 모니터링, 인프라 운영, AI 파이프라인 검증을 통해 서비스 신뢰를 만드는
+          개발자를 지향합니다.
         </p>
         <div className="hero-actions" aria-label="주요 링크">
           <a className="button primary" href={`mailto:${email}`}>
@@ -447,7 +447,7 @@ function About() {
       <SectionHeading
         kicker="About"
         title="기능 구현 이후의 안정성까지 고민합니다."
-        text="정보통신공학을 전공하며 백엔드, 서버 인프라, AI 연동 서비스 개발을 중심으로 경험을 쌓았습니다."
+        text="정보통신공학을 전공하며 서버/인프라, 백엔드, AI 연동 서비스 개발을 중심으로 경험을 쌓았습니다."
       />
       <div className="about-grid">
         <article className="about-text">
@@ -456,8 +456,8 @@ function About() {
             처리, 로그, 모니터링 지표를 구조화하는 데 강점이 있습니다.
           </p>
           <p>
-            금융 서비스처럼 정확성, 안정성, 실시간성이 중요한 환경에서 검증 가능한 구조를 만들고, 운영 중에도
-            문제를 추적할 수 있는 개발자로 성장하고자 합니다.
+            금융 서비스처럼 정확성, 안정성, 실시간성이 중요한 환경에서 검증 가능한 구조를 만들고, 서버와 인프라
+            운영 흐름까지 이해하는 개발자로 성장하고자 합니다.
           </p>
         </article>
         <div className="focus-grid">
@@ -488,7 +488,7 @@ function Skills() {
     <section className="section" id="skills">
       <SectionHeading
         kicker="Skills"
-        title="백엔드, 인프라, AI 연동을 한 흐름으로 연결합니다."
+        title="서버/인프라, 백엔드, AI 연동을 한 흐름으로 연결합니다."
         text="숙련도는 점수보다 경험 깊이가 보이도록 4단계 기준으로 표시했습니다."
       />
       <div className="skill-legend" aria-label="숙련도 기준">
@@ -711,7 +711,7 @@ function Certificates() {
       <SectionHeading
         kicker="Certificates"
         title="운영과 데이터 기반을 보강하는 자격"
-        text="네트워크, 리눅스, SQL, 클라우드 AI 기반 지식을 실무형 백엔드 역량과 연결하고 있습니다."
+        text="네트워크, 리눅스, SQL, 클라우드 AI 기반 지식을 서버/인프라 운영 역량과 연결하고 있습니다."
       />
       <div className="cert-grid">
         {certificates.map((cert) => (
@@ -730,9 +730,9 @@ function Contact() {
     <section className="section contact-section" id="contact">
       <div>
         <p className="eyebrow">Contact</p>
-        <h2>신뢰할 수 있는 백엔드와 운영 구조를 만드는 일을 하고 싶습니다.</h2>
+        <h2>신뢰할 수 있는 서버/인프라와 서비스 구조를 만드는 일을 하고 싶습니다.</h2>
         <p>
-          금융 IT, 서버/인프라, AI 연동 백엔드 직무에서 정확성과 안정성이 중요한 서비스를 함께 만들고 싶습니다.
+          금융 IT, 서버/인프라, 백엔드, AI 연동 직무에서 정확성과 안정성이 중요한 서비스를 함께 만들고 싶습니다.
         </p>
       </div>
       <div className="contact-actions">

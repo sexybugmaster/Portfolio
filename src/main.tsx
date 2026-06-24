@@ -41,6 +41,7 @@ type Project = {
     label: string;
     value: string;
     caption: string;
+    source: string;
   }[];
   codeNotes: {
     title: string;
@@ -76,10 +77,10 @@ const email = "hyl020415@gmail.com";
 const velog = "https://velog.io/@hyl0415/posts";
 
 const metrics = [
-  { value: "15/15", label: "기능 요구사항 구현·검증", detail: "NUNCHI physical QA" },
-  { value: "9-19s", label: "LLM 병목 구간 분리", detail: "MCP는 수십 ms" },
-  { value: "99%+", label: "API 성공률 안정화", detail: "HiddenGrowth" },
-  { value: "27%", label: "인증 지연 개선", detail: "KEPCO MCS" },
+  { value: "15/15", label: "기능 요구사항 구현·검증", detail: "NUNCHI 최종보고서" },
+  { value: "20", label: "MCP kiosk-control tools", detail: "NUNCHI 최종보고서" },
+  { value: "14", label: "FastAPI endpoint decorators", detail: "HiddenGrowth GitHub" },
+  { value: "27%", label: "인증 지연 개선", detail: "KEPCO MCS 인턴십" },
 ];
 
 const focusCards = [
@@ -156,7 +157,7 @@ const projects: Project[] = [
       "LLM Agent 기반 배리어프리 키오스크의 지연 구간을 측정하고 Prometheus/Grafana 관측 체계와 시선 기반 전체 조작 기능을 구축했습니다.",
     role: "서버/인프라 담당",
     period: "2026.03 - 2026.06",
-    image: "/projects/nunchi-card.jpg",
+    image: "/projects/nunchi-detail-grafana.jpg",
     metric: "15/15 기능 요구사항 검증",
     stack: [
       "Spring Boot",
@@ -184,9 +185,12 @@ const projects: Project[] = [
         "MCP Tool과 일반 REST API는 충분히 빠르고, 병목은 LLM-bound LangGraph 실행 구간이라는 결론을 얻었습니다. 이 결과 덕분에 최적화 방향을 서버 증설이 아니라 streaming, prefetch, fast path로 좁힐 수 있었습니다.",
     },
     metrics: [
-      { label: "기능 검증", value: "15/15", caption: "물리 키오스크 QA 통과" },
-      { label: "Agent Turn", value: "9-19s", caption: "LLM-bound 병목 확인" },
-      { label: "MCP Tool", value: "ms", caption: "수십 ms 수준 실행" },
+      { label: "기능 요구사항", value: "15/15", caption: "물리 키오스크에서 전체 기능 검증", source: "NUNCHI Final Report" },
+      { label: "MCP Tools", value: "20", caption: "검색, 장바구니, 주문 동기화 도구", source: "MCP Tool Catalog" },
+      { label: "Agent Turn", value: "9-19s", caption: "LangGraph invoke 중심 LLM-bound 지연", source: "[AI_STEP] timing logs" },
+      { label: "MCP 실행", value: "10ms대", caption: "tool call은 수십 ms 수준으로 병목 아님", source: "[MCP_TOOL] logs" },
+      { label: "QA / PR", value: "4 / 250+", caption: "QA 4라운드, merged PR 250+ 기준", source: "NUNCHI Final Report" },
+      { label: "서브시스템", value: "5", caption: "FE, Spring, FastAPI, MCP, vision", source: "As-built architecture" },
     ],
     codeNotes: [
       {
@@ -213,8 +217,8 @@ const projects: Project[] = [
       "사용자 경험 텍스트를 분석해 핵심 스킬, 성장 포인트, 추천 직무, 포트폴리오를 자동 생성하는 AI 기반 성장 플랫폼입니다.",
     role: "팀 리더 / AI 개발 / 백엔드 연동",
     period: "2025 X-THON",
-    image: "/projects/hidden-growth-card.jpg",
-    metric: "API 성공률 99%+",
+    image: "/projects/hidden-growth-ui-landing.jpg",
+    metric: "FastAPI endpoint 14개",
     stack: ["Spring Boot", "FastAPI", "LangGraph", "OpenAI API", "MySQL", "Docker", "JSON Schema", "Pydantic"],
     overview:
       "HiddenGrowth는 사용자의 경험 텍스트를 분석해 직무 역량과 성장 포인트를 추출하고, 포트폴리오 형태로 정리하는 AI 서비스입니다. 저는 AI 분석 파이프라인과 FastAPI-Spring 연동 규격을 맡아, LLM 출력이 서비스 데이터로 안전하게 들어오도록 검증 구조를 설계했습니다.",
@@ -226,12 +230,13 @@ const projects: Project[] = [
       choice:
         "LangGraph로 추출, 검증, 정제, 최종화 단계를 분리하고 JSON Schema/Pydantic 검증을 적용했습니다. Spring과 FastAPI 사이에는 요청/응답 Contract를 명시해 스키마 충돌을 줄였습니다.",
       result:
-        "AI 스킬 추출 정확도와 출력 품질이 개선됐고, FastAPI-Spring 연동 성공률을 99% 이상으로 안정화했습니다. 결과적으로 LLM을 단순 응답 생성기가 아니라 검증 가능한 데이터 파이프라인으로 다루는 경험을 얻었습니다.",
+        "AI 출력 품질 문제를 구조적으로 다루기 위해 FastAPI router 7개, endpoint decorator 14개, 모델/DB 클래스 21개 수준의 AI API 모듈로 기능을 분리했습니다. 결과적으로 LLM을 단순 응답 생성기가 아니라 검증 가능한 데이터 파이프라인으로 다루는 경험을 얻었습니다.",
     },
     metrics: [
-      { label: "API 성공률", value: "99%+", caption: "FastAPI-Spring 연동" },
-      { label: "스킬 추출", value: "+25%", caption: "정확도 개선" },
-      { label: "출력 품질", value: "+30%", caption: "후처리 개선" },
+      { label: "Router groups", value: "7", caption: "chat, analysis, interview 등 기능 분리", source: "app/main.py" },
+      { label: "API endpoints", value: "14", caption: "FastAPI endpoint decorator 기준", source: "FastAPI source scan" },
+      { label: "Model classes", value: "21", caption: "Pydantic/SQLAlchemy 모델 클래스", source: "app/models" },
+      { label: "AI 기능", value: "4", caption: "인터뷰, 분석, 챌린지, 포트폴리오", source: "README Key Features" },
     ],
     codeNotes: [
       {
@@ -280,9 +285,9 @@ const projects: Project[] = [
         "평균 인증 지연은 약 27% 개선됐고, 인증 오류 발생률은 약 30-40% 감소했습니다. 감으로 대응하는 방식이 아니라 재현, 분류, 검증, 지표 비교 흐름으로 문제를 다루는 경험이 됐습니다.",
     },
     metrics: [
-      { label: "인증 지연", value: "-27%", caption: "평균 지연 개선" },
-      { label: "오류율", value: "-30~40%", caption: "인증 오류 감소" },
-      { label: "분류 기준", value: "4 types", caption: "오류 유형 정리" },
+      { label: "인증 지연", value: "-27%", caption: "평균 지연 개선", source: "인턴십 정리 자료" },
+      { label: "오류율", value: "-30~40%", caption: "인증 오류 감소", source: "인턴십 정리 자료" },
+      { label: "오류 유형", value: "4", caption: "입력 품질, 매칭, 네트워크, 서버 예외", source: "로그 분류 기준" },
     ],
     codeNotes: [
       {
@@ -300,7 +305,7 @@ const projects: Project[] = [
       "성적표와 이수 내역을 기반으로 졸업요건 충족 여부를 자동 판정하는 규정 기반 시스템 경험입니다.",
     role: "데이터 매핑, 판정 로직, 예외 케이스 기준 자문",
     period: "2025.2",
-    image: "/projects/graduation-card.jpg",
+    image: "/projects/graduation-ui-home.jpg",
     metric: "규정 기반 판정 로직 설계",
     stack: ["Spring Boot", "API 설계", "JWT", "AWS", "CI/CD", "규정 기반 로직"],
     overview:
@@ -316,9 +321,10 @@ const projects: Project[] = [
         "복잡한 규정 기반 시스템에서 기준 정의, 검증 가능성, 설명가능성이 중요하다는 점을 경험했습니다. 이후 백엔드 API 설계에서도 결과뿐 아니라 근거를 함께 전달하는 구조를 더 신경 쓰게 됐습니다.",
     },
     metrics: [
-      { label: "판정 방식", value: "Rule", caption: "규정 기반 로직" },
-      { label: "입력 데이터", value: "PDF", caption: "성적표/이수 내역" },
-      { label: "설명 기준", value: "Why", caption: "미충족 사유 분리" },
+      { label: "FastAPI endpoints", value: "3", caption: "/, /compare, /recommend", source: "fastapi/main.py" },
+      { label: "Rule types", value: "9", caption: "학점, 필수과목, 시험점수 등 평가 타입", source: "rule engine scan" },
+      { label: "Graduation rules", value: "14", caption: "TOTAL_CR, MAJOR_CR, DESIGN_CR 등", source: "build_rules()" },
+      { label: "Design codes", value: "11", caption: "설계학점 판정 대상 과목 코드", source: "DESIGN_CODES" },
     ],
     codeNotes: [
       {
@@ -808,11 +814,7 @@ function ProjectModal({ project, onClose }: { project: Project | null; onClose: 
               <span>{metric.label}</span>
               <strong>{metric.value}</strong>
               <small>{metric.caption}</small>
-              <div className="metric-bars" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
+              <em>{metric.source}</em>
             </article>
           ))}
         </div>

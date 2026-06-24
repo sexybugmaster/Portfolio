@@ -804,7 +804,8 @@ p {
 
 .metric-visual {
   display: grid;
-  gap: 8px;
+  align-content: start;
+  gap: 9px;
   border: 1px solid rgba(216, 227, 238, 0.12);
   border-radius: 8px;
   padding: 18px;
@@ -819,39 +820,26 @@ p {
 
 .metric-visual strong {
   color: #f8fbff;
-  font-size: 32px;
+  font-size: 34px;
   line-height: 1;
 }
 
 .metric-visual small {
   color: #b9c8d7;
+  line-height: 1.55;
 }
 
-.metric-bars {
-  display: grid;
-  grid-template-columns: 0.45fr 0.7fr 1fr;
-  gap: 5px;
-  align-items: end;
-  height: 30px;
-  margin-top: 4px;
-}
-
-.metric-bars i {
-  display: block;
-  border-radius: 999px 999px 3px 3px;
-  background: linear-gradient(180deg, #67e8b9, #34d5e8);
-}
-
-.metric-bars i:nth-child(1) {
-  height: 42%;
-}
-
-.metric-bars i:nth-child(2) {
-  height: 66%;
-}
-
-.metric-bars i:nth-child(3) {
-  height: 100%;
+.metric-visual em {
+  width: fit-content;
+  margin-top: 3px;
+  border: 1px solid rgba(52, 213, 232, 0.22);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #67e8b9;
+  background: rgba(52, 213, 232, 0.08);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
 }
 
 .code-note-section {

@@ -4,5 +4,6 @@ dist/
 .DS_Store
 artifacts-*.png
 *.local
+.codex_tmp/
 
 .vercel

@@ -26,10 +26,14 @@ type Project = {
   eyebrow: string;
   summary: string;
   role: string;
+  period: string;
+  image: string;
+  metric: string;
   stack: string[];
   problem: string[];
   action: string[];
   result: string[];
+  detailImages?: string[];
   links?: ProjectLink[];
 };
 
@@ -137,6 +141,9 @@ const projects: Project[] = [
     summary:
       "LLM Agent 기반 배리어프리 키오스크의 지연 구간을 측정하고 Prometheus/Grafana 관측 체계와 시선 기반 전체 조작 기능을 구축했습니다.",
     role: "서버/인프라 담당",
+    period: "2026.03 - 2026.06",
+    image: "/projects/nunchi-card.jpg",
+    metric: "15/15 기능 요구사항 검증",
     stack: [
       "Spring Boot",
       "FastAPI",
@@ -165,6 +172,11 @@ const projects: Project[] = [
       "전체 agentic turn의 9-19초 지연이 시스템/DB가 아니라 LLM-bound LangGraph 실행 구간임을 분리했습니다.",
       "고객 화면 전반에서 시선 이동과 더블 깜빡임 클릭으로 터치 없이 조작 가능한 접근성 채널을 구현했습니다.",
     ],
+    detailImages: [
+      "/projects/nunchi-detail-grafana.jpg",
+      "/projects/nunchi-detail-gaze.jpg",
+      "/projects/nunchi-detail-architecture.jpg",
+    ],
     links: [{ label: "GitHub", href: "https://github.com/CapstoneDgu" }],
   },
   {
@@ -173,6 +185,9 @@ const projects: Project[] = [
     summary:
       "사용자 경험 텍스트를 분석해 핵심 스킬, 성장 포인트, 추천 직무, 포트폴리오를 자동 생성하는 AI 기반 성장 플랫폼입니다.",
     role: "팀 리더 / AI 개발 / 백엔드 연동",
+    period: "2025 X-THON",
+    image: "/projects/hidden-growth-card.jpg",
+    metric: "API 성공률 99%+",
     stack: ["Spring Boot", "FastAPI", "LangGraph", "OpenAI API", "MySQL", "Docker", "JSON Schema", "Pydantic"],
     problem: [
       "AI가 문맥과 무관한 스킬을 생성하거나 중복 스킬, 깨진 JSON 구조를 반환했습니다.",
@@ -187,6 +202,7 @@ const projects: Project[] = [
       "AI 스킬 추출 정확도 약 25%, 프롬프트/후처리 품질 약 30%를 개선했습니다.",
       "FastAPI-Spring 연동 API 성공률을 99% 이상으로 안정화했습니다.",
     ],
+    detailImages: ["/projects/hidden-growth-card.jpg"],
     links: [
       {
         label: "GitHub",
@@ -200,6 +216,9 @@ const projects: Project[] = [
     summary:
       "생체정맥 기반 스마트결제 시스템의 인증 실패와 지연 문제를 로그 기반으로 분석하고 정합성 검증을 개선했습니다.",
     role: "인증 실패/지연 재현 및 로그 분석",
+    period: "2025.07 - 2025.08",
+    image: "/projects/kepco-card.jpg",
+    metric: "인증 지연 27% 개선",
     stack: ["API 테스트", "로그 분석", "데이터 정합성 검증", "오류 유형 분류", "운영 지표 비교"],
     problem: [
       "생체정맥 인증 실패와 지연이 발생했지만 원인 유형과 검증 기준이 명확하지 않았습니다.",
@@ -214,6 +233,7 @@ const projects: Project[] = [
       "평균 인증 지연을 약 27% 개선했습니다.",
       "인증 오류 발생률을 약 30-40% 줄였습니다.",
     ],
+    detailImages: ["/projects/kepco-card.jpg"],
   },
   {
     eyebrow: "Rule-based System / Campus IT",
@@ -221,6 +241,9 @@ const projects: Project[] = [
     summary:
       "성적표와 이수 내역을 기반으로 졸업요건 충족 여부를 자동 판정하는 규정 기반 시스템 경험입니다.",
     role: "데이터 매핑, 판정 로직, 예외 케이스 기준 자문",
+    period: "2025.2",
+    image: "/projects/graduation-card.jpg",
+    metric: "규정 기반 판정 로직 설계",
     stack: ["Spring Boot", "API 설계", "JWT", "AWS", "CI/CD", "규정 기반 로직"],
     problem: [
       "졸업요건 규정과 학생 이수 내역의 매핑이 복잡하고 예외 케이스가 많았습니다.",
@@ -234,6 +257,7 @@ const projects: Project[] = [
       "복잡한 규정 기반 시스템에서 검증, 기준 정의, 설명가능성의 중요성을 경험했습니다.",
       "인증, 사용자 관리, 배포 흐름까지 고려한 서비스 구조를 학습했습니다.",
     ],
+    detailImages: ["/projects/graduation-detail.jpg"],
     links: [{ label: "GitHub", href: "https://github.com/CSID-DGU/2025-2-DES4015-Hangover-3" }],
   },
 ];
@@ -546,44 +570,26 @@ function Skills() {
 }
 
 function Projects() {
+  const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
+
   return (
     <section className="section" id="projects">
       <SectionHeading
         kicker="Projects"
-        title="Problem · Action · Result로 정리한 프로젝트"
-        text="각 프로젝트는 문제를 어떻게 정의했고, 어떤 조치를 했으며, 어떤 결과를 만들었는지 바로 보이도록 구성했습니다."
+        title="대표 프로젝트를 먼저 가볍게 훑고, 필요한 내용만 깊게 볼 수 있게 정리했습니다."
+        text="카드는 한 줄 요약과 핵심 지표만 보여주고, 클릭하면 문제·액션·성과와 시각 자료가 열립니다."
       />
-      <div className="project-index-grid" aria-label="프로젝트 바로가기">
+      <div className="project-gallery">
         {projects.map((project, index) => (
-          <a className="project-index-card" href={`#project-${index + 1}`} key={project.title}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <small>{project.eyebrow}</small>
-            <strong>{project.title}</strong>
-            <em>Problem · Action · Result</em>
-          </a>
-        ))}
-        <a className="project-index-card planning" href="#project-planning">
-          <span>05</span>
-          <small>Planning Project</small>
-          <strong>{planningProject.title}</strong>
-          <em>기획 경험 보기</em>
-        </a>
-      </div>
-      <div className="project-list">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index + 1} />
+          <ProjectCard key={project.title} project={project} index={index + 1} onOpen={setSelectedProject} />
         ))}
       </div>
       <article className="planning-card" id="project-planning">
-        <div>
+        <img src="/projects/flexpace-card.jpg" alt="" />
+        <div className="planning-copy">
           <p className="eyebrow">Planning Project</p>
           <h3>{planningProject.title}</h3>
           <p>{planningProject.summary}</p>
-        </div>
-        <div className="par-grid compact">
-          <ParBlock title="Problem" items={[planningProject.problem]} />
-          <ParBlock title="Action" items={[planningProject.action]} />
-          <ParBlock title="Result" items={[planningProject.result]} />
         </div>
         <div className="tag-list planning-tags">
           {planningProject.stack.map((item) => (
@@ -591,6 +597,7 @@ function Projects() {
           ))}
         </div>
       </article>
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 }
@@ -645,40 +652,95 @@ function Activities() {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  onOpen,
+}: {
+  project: Project;
+  index: number;
+  onOpen: (project: Project) => void;
+}) {
   return (
     <article className="project-card" id={`project-${index}`}>
-      <div className="project-index">{String(index).padStart(2, "0")}</div>
-      <div className="project-main">
-        <p className="eyebrow">{project.eyebrow}</p>
-        <h3>{project.title}</h3>
-        <p>{project.summary}</p>
-        <div className="role-line">
-          <BriefcaseBusiness aria-hidden="true" />
-          {project.role}
+      <button type="button" className="project-card-button" onClick={() => onOpen(project)}>
+        <img src={project.image} alt="" />
+        <div className="project-card-body">
+          <div className="project-card-topline">
+            <span>{String(index).padStart(2, "0")}</span>
+            <small>{project.eyebrow}</small>
+          </div>
+          <h3>{project.title}</h3>
+          <p>{project.summary}</p>
+          <div className="project-card-meta">
+            <span>{project.role}</span>
+            <span>{project.period}</span>
+          </div>
+          <strong className="project-metric">{project.metric}</strong>
+          <div className="tag-list">
+            {project.stack.slice(0, 5).map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
         </div>
-        <div className="tag-list">
-          {project.stack.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
+      </button>
+    </article>
+  );
+}
+
+function ProjectModal({ project, onClose }: { project: Project | null; onClose: () => void }) {
+  if (!project) return null;
+
+  return (
+    <div className="project-modal-backdrop" role="presentation" onClick={onClose}>
+      <section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" onClick={(event) => event.stopPropagation()}>
+        <button className="modal-close" type="button" onClick={onClose} aria-label="프로젝트 상세 닫기">
+          ×
+        </button>
+        <div className="project-modal-hero">
+          <img src={project.image} alt="" />
+          <div>
+            <p className="eyebrow">{project.eyebrow}</p>
+            <h3 id="project-modal-title">{project.title}</h3>
+            <p>{project.summary}</p>
+            <div className="project-card-meta">
+              <span>{project.role}</span>
+              <span>{project.period}</span>
+            </div>
+            <strong className="project-metric">{project.metric}</strong>
+          </div>
         </div>
-        {project.links ? (
-          <div className="project-links">
-            {project.links.map((link) => (
-              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noreferrer">
-                <GitBranch aria-hidden="true" />
-                {link.label}
-              </a>
+        <div className="par-grid">
+          <ParBlock title="Problem" items={project.problem} />
+          <ParBlock title="Action" items={project.action} />
+          <ParBlock title="Result" items={project.result} />
+        </div>
+        {project.detailImages ? (
+          <div className="project-detail-media">
+            {project.detailImages.map((image) => (
+              <img src={image} alt="" key={image} />
             ))}
           </div>
         ) : null}
-      </div>
-      <div className="par-grid">
-        <ParBlock title="Problem" items={project.problem} />
-        <ParBlock title="Action" items={project.action} />
-        <ParBlock title="Result" items={project.result} />
-      </div>
-    </article>
+        <div className="project-modal-footer">
+          <div className="tag-list">
+            {project.stack.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+          {project.links ? (
+            <div className="project-links">
+              {project.links.map((link) => (
+                <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noreferrer">
+                  <GitBranch aria-hidden="true" />
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </section>
+    </div>
   );
 }
 

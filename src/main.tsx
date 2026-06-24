@@ -30,9 +30,23 @@ type Project = {
   image: string;
   metric: string;
   stack: string[];
-  problem: string[];
-  action: string[];
-  result: string[];
+  overview: string;
+  decisions: {
+    problem: string;
+    consideration: string;
+    choice: string;
+    result: string;
+  };
+  metrics: {
+    label: string;
+    value: string;
+    caption: string;
+  }[];
+  codeNotes: {
+    title: string;
+    text: string;
+    code?: string;
+  }[];
   detailImages?: string[];
   links?: ProjectLink[];
 };
@@ -157,20 +171,33 @@ const projects: Project[] = [
       "MediaPipe",
       "WebSocket",
     ],
-    problem: [
-      "AI 주문 대화가 9-19초까지 지연되며 Spring, DB, MCP, LangGraph Agent 중 병목 구간이 불명확했습니다.",
-      "터치, 음성, AI 액션, 시선 입력이 같은 장바구니 상태를 다루기 때문에 동시성 안전성과 접근성 입력 채널이 함께 필요했습니다.",
+    overview:
+      "NUNCHI는 LLM Agent가 실제 키오스크 주문 시스템을 조작하는 배리어프리 서비스입니다. 저는 서버/인프라 관점에서 배포 구조, 관측 지표, 병목 분리, 시선 입력 연동 검토를 맡아 시스템이 느린 이유와 안전하게 운영되는 조건을 분명히 만드는 데 집중했습니다.",
+    decisions: {
+      problem:
+        "AI 주문 대화가 9-19초까지 지연됐지만, 사용자는 단순히 '서버가 느리다'고 느낄 수밖에 없었습니다. Spring, DB, MCP, LangGraph 중 어느 구간이 실제 병목인지 분리해야 했습니다.",
+      consideration:
+        "처음에는 API 응답 시간만 보면 된다고 생각할 수 있었지만, 전체 응답 시간만 보면 DB 문제인지 LLM 실행 문제인지 판단할 수 없었습니다. 그래서 서비스 단계별 로그와 Actuator/Prometheus 지표를 함께 보는 방식이 필요했습니다.",
+      choice:
+        "Spring [AI_CALL], FastAPI [AI_STEP], MCP [MCP_TOOL] 로그를 ms 단위로 남기고, Prometheus/Grafana로 p95/p99 요청 지표를 관측했습니다. 시선 입력은 YES/NO가 아니라 좌우 포커스 이동과 더블 깜빡임 클릭으로 전체 화면 조작이 가능하도록 정리했습니다.",
+      result:
+        "MCP Tool과 일반 REST API는 충분히 빠르고, 병목은 LLM-bound LangGraph 실행 구간이라는 결론을 얻었습니다. 이 결과 덕분에 최적화 방향을 서버 증설이 아니라 streaming, prefetch, fast path로 좁힐 수 있었습니다.",
+    },
+    metrics: [
+      { label: "기능 검증", value: "15/15", caption: "물리 키오스크 QA 통과" },
+      { label: "Agent Turn", value: "9-19s", caption: "LLM-bound 병목 확인" },
+      { label: "MCP Tool", value: "ms", caption: "수십 ms 수준 실행" },
     ],
-    action: [
-      "AWS EC2와 Docker Compose 환경에서 Spring Boot, FastAPI, MCP, PostgreSQL, Redis 운영 구조를 구성했습니다.",
-      "Spring Actuator를 Prometheus가 15초 주기로 수집하도록 연결하고 p95/p99 요청 히스토그램과 Grafana 대시보드로 API 상태를 관측했습니다.",
-      "FastAPI [AI_STEP], MCP [MCP_TOOL], Spring [AI_CALL] ms 단위 로그를 기준으로 지연 구간을 분리했습니다.",
-      "MediaPipe Face Mesh 468 landmarks 기반 15fps 시선 파이프라인을 WebSocket으로 연결해 좌/우 시선 포커스 이동과 더블 깜빡임 클릭을 구현했습니다.",
-    ],
-    result: [
-      "15개 기능 요구사항을 물리 키오스크에서 구현·검증했고, 일반 REST API는 sub-second, MCP Tool은 수십 ms 수준임을 확인했습니다.",
-      "전체 agentic turn의 9-19초 지연이 시스템/DB가 아니라 LLM-bound LangGraph 실행 구간임을 분리했습니다.",
-      "고객 화면 전반에서 시선 이동과 더블 깜빡임 클릭으로 터치 없이 조작 가능한 접근성 채널을 구현했습니다.",
+    codeNotes: [
+      {
+        title: "구간별 타이밍 로그",
+        text: "FastAPI, MCP, Spring 로그를 같은 요청 흐름 안에서 비교해 병목 위치를 추적했습니다.",
+        code: "[AI_STEP] langgraph_invoke=12840ms\n[MCP_TOOL] tool_add_cart_item=42ms\n[AI_CALL] total=13420ms",
+      },
+      {
+        title: "관측 기준",
+        text: "Actuator의 Prometheus endpoint를 15초 주기로 수집하고 p95/p99 요청 히스토그램을 Grafana에서 확인했습니다.",
+      },
     ],
     detailImages: [
       "/projects/nunchi-detail-grafana.jpg",
@@ -189,20 +216,40 @@ const projects: Project[] = [
     image: "/projects/hidden-growth-card.jpg",
     metric: "API 성공률 99%+",
     stack: ["Spring Boot", "FastAPI", "LangGraph", "OpenAI API", "MySQL", "Docker", "JSON Schema", "Pydantic"],
-    problem: [
-      "AI가 문맥과 무관한 스킬을 생성하거나 중복 스킬, 깨진 JSON 구조를 반환했습니다.",
-      "FastAPI와 Spring Boot 간 요청/응답 스키마 충돌이 발생했습니다.",
+    overview:
+      "HiddenGrowth는 사용자의 경험 텍스트를 분석해 직무 역량과 성장 포인트를 추출하고, 포트폴리오 형태로 정리하는 AI 서비스입니다. 저는 AI 분석 파이프라인과 FastAPI-Spring 연동 규격을 맡아, LLM 출력이 서비스 데이터로 안전하게 들어오도록 검증 구조를 설계했습니다.",
+    decisions: {
+      problem:
+        "초기에는 AI가 문맥과 무관한 스킬을 만들거나 중복 스킬을 반환했고, JSON 구조가 깨져 Spring 쪽 연동이 실패하는 문제가 있었습니다.",
+      consideration:
+        "프롬프트를 길게 보강하는 방식은 빠르게 적용할 수 있지만, 출력 형식과 품질을 항상 보장하기 어렵다는 단점이 있었습니다. 반대로 단계별 파이프라인은 구현량이 늘지만 검증과 후처리를 분리할 수 있었습니다.",
+      choice:
+        "LangGraph로 추출, 검증, 정제, 최종화 단계를 분리하고 JSON Schema/Pydantic 검증을 적용했습니다. Spring과 FastAPI 사이에는 요청/응답 Contract를 명시해 스키마 충돌을 줄였습니다.",
+      result:
+        "AI 스킬 추출 정확도와 출력 품질이 개선됐고, FastAPI-Spring 연동 성공률을 99% 이상으로 안정화했습니다. 결과적으로 LLM을 단순 응답 생성기가 아니라 검증 가능한 데이터 파이프라인으로 다루는 경험을 얻었습니다.",
+    },
+    metrics: [
+      { label: "API 성공률", value: "99%+", caption: "FastAPI-Spring 연동" },
+      { label: "스킬 추출", value: "+25%", caption: "정확도 개선" },
+      { label: "출력 품질", value: "+30%", caption: "후처리 개선" },
     ],
-    action: [
-      "단일 프롬프트 대신 LangGraph 기반 추출, 검증, 정제, 최종화 구조로 파이프라인을 분리했습니다.",
-      "JSON Schema/Pydantic 검증과 스킬 사전, 제외 규칙, 후처리 필터를 적용했습니다.",
-      "API Contract를 정리해 요청/응답 규격을 표준화했습니다.",
+    codeNotes: [
+      {
+        title: "Schema First",
+        text: "LLM 출력은 바로 저장하지 않고 Pydantic 모델과 JSON Schema를 통과한 값만 Spring으로 전달했습니다.",
+        code: "class SkillResult(BaseModel):\n    skills: list[str]\n    evidence: list[str]\n    confidence: float",
+      },
+      {
+        title: "파이프라인 분리",
+        text: "한 번의 프롬프트로 끝내지 않고 추출과 검증 단계를 분리해 원인 추적과 품질 개선이 쉬운 구조로 만들었습니다.",
+      },
     ],
-    result: [
-      "AI 스킬 추출 정확도 약 25%, 프롬프트/후처리 품질 약 30%를 개선했습니다.",
-      "FastAPI-Spring 연동 API 성공률을 99% 이상으로 안정화했습니다.",
+    detailImages: [
+      "/projects/hidden-growth-ui-landing.jpg",
+      "/projects/hidden-growth-ui-basic.jpg",
+      "/projects/hidden-growth-ui-chat.jpg",
+      "/projects/hidden-growth-architecture.jpg",
     ],
-    detailImages: ["/projects/hidden-growth-card.jpg"],
     links: [
       {
         label: "GitHub",
@@ -220,18 +267,29 @@ const projects: Project[] = [
     image: "/projects/kepco-card.jpg",
     metric: "인증 지연 27% 개선",
     stack: ["API 테스트", "로그 분석", "데이터 정합성 검증", "오류 유형 분류", "운영 지표 비교"],
-    problem: [
-      "생체정맥 인증 실패와 지연이 발생했지만 원인 유형과 검증 기준이 명확하지 않았습니다.",
-      "운영 대응이 감에 의존하기 쉬운 상태였습니다.",
+    overview:
+      "한전 MCS 인턴십에서는 생체정맥 기반 스마트결제 시스템의 인증 실패와 지연을 분석했습니다. 내부 시스템 화면은 보안상 제외하고, 운영 안정화 과정 자체를 로그 기반 분류와 정합성 검증 보완 경험으로 정리했습니다.",
+    decisions: {
+      problem:
+        "인증 실패와 지연이 발생했지만 원인이 입력 품질인지, 사용자 등록정보 매칭 문제인지, 네트워크/서버 지연인지 구분하기 어려웠습니다.",
+      consideration:
+        "개별 케이스를 임시로 처리하면 단기적으로는 빠르지만 같은 유형의 오류가 반복될 수 있었습니다. 반대로 오류 유형을 먼저 분류하면 시간이 더 걸리지만 운영 대응 기준을 만들 수 있었습니다.",
+      choice:
+        "로그를 기준으로 입력 품질, 매칭 불일치, 네트워크 지연, 서버 예외를 분류하고 필수값/형식/사용자-등록정보 매칭 검증을 보완했습니다.",
+      result:
+        "평균 인증 지연은 약 27% 개선됐고, 인증 오류 발생률은 약 30-40% 감소했습니다. 감으로 대응하는 방식이 아니라 재현, 분류, 검증, 지표 비교 흐름으로 문제를 다루는 경험이 됐습니다.",
+    },
+    metrics: [
+      { label: "인증 지연", value: "-27%", caption: "평균 지연 개선" },
+      { label: "오류율", value: "-30~40%", caption: "인증 오류 감소" },
+      { label: "분류 기준", value: "4 types", caption: "오류 유형 정리" },
     ],
-    action: [
-      "오류 로그를 기준으로 입력 품질, 데이터 매칭 불일치, 네트워크 지연, 서버 예외 유형을 분류했습니다.",
-      "필수값, 형식, 사용자-등록정보 매칭 검증 기준을 보완했습니다.",
-      "개선 전후 인증 지연과 오류율 지표를 비교했습니다.",
-    ],
-    result: [
-      "평균 인증 지연을 약 27% 개선했습니다.",
-      "인증 오류 발생률을 약 30-40% 줄였습니다.",
+    codeNotes: [
+      {
+        title: "운영 로그 분류 관점",
+        text: "코드 구현보다 운영 데이터 해석이 핵심이었기 때문에, 실패 케이스를 유형화하고 검증 기준을 강화하는 데 집중했습니다.",
+        code: "input_quality | matching_mismatch | network_delay | server_exception",
+      },
     ],
     detailImages: ["/projects/kepco-card.jpg"],
   },
@@ -245,19 +303,35 @@ const projects: Project[] = [
     image: "/projects/graduation-card.jpg",
     metric: "규정 기반 판정 로직 설계",
     stack: ["Spring Boot", "API 설계", "JWT", "AWS", "CI/CD", "규정 기반 로직"],
-    problem: [
-      "졸업요건 규정과 학생 이수 내역의 매핑이 복잡하고 예외 케이스가 많았습니다.",
-      "판정 결과를 사용자가 이해할 수 있게 설명하는 기준이 필요했습니다.",
+    overview:
+      "졸업요건 판정 시스템은 성적표와 이수 내역을 바탕으로 졸업요건 충족 여부를 자동 판단하는 규정 기반 서비스입니다. 저는 규정 데이터와 학생 이수 데이터가 어떻게 매핑되어야 하는지, 예외 케이스를 어떤 기준으로 설명해야 하는지에 집중했습니다.",
+    decisions: {
+      problem:
+        "졸업요건은 전공, 교양, 필수 과목, 예외 인정 규칙이 섞여 있어 단순 합산으로 판정하기 어려웠습니다. 사용자에게 왜 미충족인지 설명하는 것도 중요했습니다.",
+      consideration:
+        "AI로 바로 판정하게 만들면 유연성은 있지만 근거가 불명확해질 수 있었습니다. 반대로 규정 기반 로직은 설계가 까다롭지만 결과를 설명하고 검증하기 쉽다는 장점이 있었습니다.",
+      choice:
+        "성적표/이수 내역을 정규화한 뒤 규정 테이블과 매핑하고, 부족 학점과 미충족 항목을 분리해 보여주는 방식을 채택했습니다. 예외 케이스는 학사정보시스템 개발팀과 협업하며 기준을 점검했습니다.",
+      result:
+        "복잡한 규정 기반 시스템에서 기준 정의, 검증 가능성, 설명가능성이 중요하다는 점을 경험했습니다. 이후 백엔드 API 설계에서도 결과뿐 아니라 근거를 함께 전달하는 구조를 더 신경 쓰게 됐습니다.",
+    },
+    metrics: [
+      { label: "판정 방식", value: "Rule", caption: "규정 기반 로직" },
+      { label: "입력 데이터", value: "PDF", caption: "성적표/이수 내역" },
+      { label: "설명 기준", value: "Why", caption: "미충족 사유 분리" },
     ],
-    action: [
-      "성적표/이수 내역 기반 데이터 매핑 방식과 자동 판정 로직 기준을 정리했습니다.",
-      "학사정보시스템 개발팀과 협업하며 예외 케이스 처리 기준을 자문했습니다.",
+    codeNotes: [
+      {
+        title: "검증 가능한 판정 흐름",
+        text: "학생 이수 내역을 바로 결과로 바꾸지 않고 validate, load_rules, compare 단계로 분리해 결과 근거를 남기는 구조가 핵심이었습니다.",
+        code: "validate(transcript) -> load_rules(department) -> compare(completed, required)",
+      },
     ],
-    result: [
-      "복잡한 규정 기반 시스템에서 검증, 기준 정의, 설명가능성의 중요성을 경험했습니다.",
-      "인증, 사용자 관리, 배포 흐름까지 고려한 서비스 구조를 학습했습니다.",
+    detailImages: [
+      "/projects/graduation-ui-home.jpg",
+      "/projects/graduation-detail.jpg",
+      "/projects/graduation-architecture.jpg",
     ],
-    detailImages: ["/projects/graduation-detail.jpg"],
     links: [{ label: "GitHub", href: "https://github.com/CSID-DGU/2025-2-DES4015-Hangover-3" }],
   },
 ];
@@ -702,7 +776,7 @@ function ProjectModal({ project, onClose }: { project: Project | null; onClose: 
           <div>
             <p className="eyebrow">{project.eyebrow}</p>
             <h3 id="project-modal-title">{project.title}</h3>
-            <p>{project.summary}</p>
+            <p>{project.overview}</p>
             <div className="project-card-meta">
               <span>{project.role}</span>
               <span>{project.period}</span>
@@ -710,11 +784,50 @@ function ProjectModal({ project, onClose }: { project: Project | null; onClose: 
             <strong className="project-metric">{project.metric}</strong>
           </div>
         </div>
-        <div className="par-grid">
-          <ParBlock title="Problem" items={project.problem} />
-          <ParBlock title="Action" items={project.action} />
-          <ParBlock title="Result" items={project.result} />
+        <div className="project-story">
+          <p>
+            <strong>문제 인식</strong>
+            {project.decisions.problem}
+          </p>
+          <p>
+            <strong>고민한 선택지</strong>
+            {project.decisions.consideration}
+          </p>
+          <p>
+            <strong>채택한 방식</strong>
+            {project.decisions.choice}
+          </p>
+          <p>
+            <strong>결과</strong>
+            {project.decisions.result}
+          </p>
         </div>
+        <div className="metric-visual-grid" aria-label="프로젝트 핵심 수치">
+          {project.metrics.map((metric) => (
+            <article className="metric-visual" key={metric.label}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
+              <small>{metric.caption}</small>
+              <div className="metric-bars" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </div>
+            </article>
+          ))}
+        </div>
+        <section className="code-note-section">
+          <h4>핵심 코드/구조 포인트</h4>
+          <div className="code-note-grid">
+            {project.codeNotes.map((note) => (
+              <article className="code-note" key={note.title}>
+                <h5>{note.title}</h5>
+                <p>{note.text}</p>
+                {note.code ? <pre>{note.code}</pre> : null}
+              </article>
+            ))}
+          </div>
+        </section>
         {project.detailImages ? (
           <div className="project-detail-media">
             {project.detailImages.map((image) => (

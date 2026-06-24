@@ -773,6 +773,136 @@ p {
   word-break: keep-all;
 }
 
+.project-story {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid rgba(216, 227, 238, 0.12);
+  border-bottom: 1px solid rgba(216, 227, 238, 0.12);
+  padding: 22px 0;
+}
+
+.project-story p {
+  margin: 0;
+  color: #c7d6e5;
+  font-size: 15px;
+  line-height: 1.78;
+  word-break: keep-all;
+}
+
+.project-story strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #67e8b9;
+  font-size: 13px;
+}
+
+.metric-visual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-visual {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(216, 227, 238, 0.12);
+  border-radius: 8px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.metric-visual span {
+  color: #9eb0c1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.metric-visual strong {
+  color: #f8fbff;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.metric-visual small {
+  color: #b9c8d7;
+}
+
+.metric-bars {
+  display: grid;
+  grid-template-columns: 0.45fr 0.7fr 1fr;
+  gap: 5px;
+  align-items: end;
+  height: 30px;
+  margin-top: 4px;
+}
+
+.metric-bars i {
+  display: block;
+  border-radius: 999px 999px 3px 3px;
+  background: linear-gradient(180deg, #67e8b9, #34d5e8);
+}
+
+.metric-bars i:nth-child(1) {
+  height: 42%;
+}
+
+.metric-bars i:nth-child(2) {
+  height: 66%;
+}
+
+.metric-bars i:nth-child(3) {
+  height: 100%;
+}
+
+.code-note-section {
+  display: grid;
+  gap: 12px;
+}
+
+.code-note-section h4 {
+  margin: 0;
+  color: #f8fbff;
+  font-size: 18px;
+}
+
+.code-note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.code-note {
+  border: 1px solid rgba(216, 227, 238, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(7, 17, 31, 0.7);
+}
+
+.code-note h5 {
+  margin: 0 0 8px;
+  color: #67e8b9;
+  font-size: 14px;
+}
+
+.code-note p {
+  margin-bottom: 12px;
+  color: #c7d6e5;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.code-note pre {
+  overflow: auto;
+  margin: 0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #050d17;
+  color: #d8e3ee;
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .project-modal-hero > img,
 .project-detail-media img {
   width: 100%;
@@ -1038,6 +1168,8 @@ p {
   }
 
   .par-grid,
+  .metric-visual-grid,
+  .code-note-grid,
   .project-detail-media {
     grid-template-columns: 1fr;
   }

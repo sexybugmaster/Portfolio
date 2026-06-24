@@ -1,0 +1,5 @@
+.codex_tmp/
+node_modules/
+dist/
+.git/
+.idea/

@@ -157,7 +157,7 @@ const projects: Project[] = [
       "LLM Agent 기반 배리어프리 키오스크의 지연 구간을 측정하고 Prometheus/Grafana 관측 체계와 시선 기반 전체 조작 기능을 구축했습니다.",
     role: "서버/인프라 담당",
     period: "2026.03 - 2026.06",
-    image: "/projects/nunchi-detail-grafana.jpg",
+    image: "/projects/nunchi-card.jpg",
     metric: "15/15 기능 요구사항 검증",
     stack: [
       "Spring Boot",
@@ -217,7 +217,7 @@ const projects: Project[] = [
       "사용자 경험 텍스트를 분석해 핵심 스킬, 성장 포인트, 추천 직무, 포트폴리오를 자동 생성하는 AI 기반 성장 플랫폼입니다.",
     role: "팀 리더 / AI 개발 / 백엔드 연동",
     period: "2025 X-THON",
-    image: "/projects/hidden-growth-ui-landing.jpg",
+    image: "/projects/hidden-growth-card.jpg",
     metric: "FastAPI endpoint 14개",
     stack: ["Spring Boot", "FastAPI", "LangGraph", "OpenAI API", "MySQL", "Docker", "JSON Schema", "Pydantic"],
     overview:
@@ -305,7 +305,7 @@ const projects: Project[] = [
       "성적표와 이수 내역을 기반으로 졸업요건 충족 여부를 자동 판정하는 규정 기반 시스템 경험입니다.",
     role: "데이터 매핑, 판정 로직, 예외 케이스 기준 자문",
     period: "2025.2",
-    image: "/projects/graduation-ui-home.jpg",
+    image: "/projects/graduation-card.jpg",
     metric: "규정 기반 판정 로직 설계",
     stack: ["Spring Boot", "API 설계", "JWT", "AWS", "CI/CD", "규정 기반 로직"],
     overview:
